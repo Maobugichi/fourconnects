@@ -15,6 +15,14 @@ export default function Modal({show,setShow,setRestart}) {
         },2000)
     }
 
+    function continueGame() {
+      setShow(prev => {
+        return  {
+          ...prev, 
+          isShow: !prev.isShow
+        }})
+    }
+    
     function quit(e) {
       if (e.target.innerText == "QUIT GAME") {
         navigate("/")
@@ -40,6 +48,7 @@ export default function Modal({show,setShow,setRestart}) {
          reset={reset}
          width="w-full"
          quit={quit}
+         continueGame={continueGame}
         />
         </motion.div> : null }
     </AnimatePresence>
