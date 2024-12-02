@@ -12,9 +12,9 @@ const [show,setShow] = useState({
   })
 
 const location = useLocation()
-const {isCpu} = location.state
-const checkCpu = isCpu === "true"
-console.log(checkCpu)
+//const {isCpu} = location.state
+//const checkCpu = isCpu === "true"
+//console.log(checkCpu)
 const [isRestart, setRestart] = useState(false)
   return(
     <section className="h-auto md:min-h-[100vh] bg-purple overflow-x-hidden font-custom-font">
@@ -29,19 +29,13 @@ const [isRestart, setRestart] = useState(false)
        setRestart={setRestart}
       />
       
-     {checkCpu ?
+     
       <PlayerCpu
         show={show}
         setShow={setShow}
         isRestart={isRestart}
         setRestart={setRestart}
-        />  :
-       <UservUser
-        show={show}
-        setShow={setShow}
-        isRestart={isRestart}
-        setRestart={setRestart}
-        /> }
+        />  
     </section>
   )
 }
