@@ -1,7 +1,7 @@
 import { useState,useContext, useEffect } from "react"
 import { GameContext } from "./MyProvider"
 import Header from "./Header"
-import PlayerCpu from "./PlayerCpu"
+
 import Modal from "./Modal"
 import { useLocation } from "react-router-dom"
 import UservUser from "./UservUser"
@@ -30,7 +30,7 @@ const [isRestart, setRestart] = useState(false)
       />
       
      
-      <PlayerCpu
+      <UservUser
         show={show}
         setShow={setShow}
         isRestart={isRestart}

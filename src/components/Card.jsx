@@ -8,8 +8,6 @@ export default function Card({logo,cpu,player,bg,show,setShow,reset,quit}) {
   const [isCpu, setCpu] = useState(null)
   const navigate = useNavigate();
   const toNextPage = (e) => {
- 
-  
   setShow(prev => {
     return  {
       ...prev, 
@@ -24,10 +22,7 @@ export default function Card({logo,cpu,player,bg,show,setShow,reset,quit}) {
       
     },[isCpu,navigate])
   
-   const toUserPage = () => {
-      setCpu(false)
-      localStorage.setItem("isCpu",isCpu.toString())
-   }
+ 
        return (
         <div className={`${bg ? bg : null} border-2 rounded-[30px] border-black lg:w-[29%] md:w-[70%] w-[80%] shadow-b shadow-black-sh h-auto min-h-[500px] lg:min-h-[430px] grid place-items-center`}>
          <div className={` flex items-center flex-col h-[330px] w-[85%]  justify-between`}>
@@ -50,7 +45,7 @@ export default function Card({logo,cpu,player,bg,show,setShow,reset,quit}) {
                to="/fourconnects/sec/1"
                className="block h-[26%]">
                 <Button
-                    onClick={reset ? reset : toUserPage}
+                    onClick={reset }
                     value={show && show.isShow ? "Restart" : "PLAY vs player"}
                     imgSrc={player}
                     bg={show && show.isShow ? "bg-white" : "bg-yellow"}
