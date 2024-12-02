@@ -21,13 +21,13 @@ const HomePage = () => {
 }
 
 
-const Button = ({bg,value,imgSrc,h,onClick}) => {
+const Button = ({bg,value,imgSrc,h = "h-full",onClick}) => {
     return(
         <motion.button 
          onClick={onClick}
          whileHover={{scale:0.9}}
          transition={{type:spring, bounce:0.25}}
-         className={`${bg} ${h} uppercase font-bold flex items-center pl-3 justify-between pr-5 w-full   border-2 rounded-[15px] border-black  shadow-b shadow-black-sh hover:shadow-purple-sh transition-shadow duration-700 ease-out`}>{value} {imgSrc ? <img className="w-[40px]" src={imgSrc}/>: null}</motion.button>
+         className={`${bg} h-full uppercase font-bold flex items-center pl-3 justify-between pr-5 w-full   border-2 rounded-[15px] border-black  shadow-b shadow-black-sh hover:shadow-purple-sh transition-shadow duration-700 ease-out`}>{value} {imgSrc ? <img className="w-[40px]" src={imgSrc}/>: null}</motion.button>
     )
 }
 

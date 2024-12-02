@@ -17,9 +17,7 @@ export default function Card({logo,cpu,player,bg,show,setShow,reset,quit}) {
     }})
   }
 
-  const toGamePage = (e) => {
-    navigate("/fourconnects/gamerules/1")
-  }
+ 
 
     useEffect(() => {
      
@@ -50,23 +48,27 @@ export default function Card({logo,cpu,player,bg,show,setShow,reset,quit}) {
 
               <Link 
                to="/fourconnects/sec/1"
-              className="block h-[26%]">
+               className="block h-[26%]">
                 <Button
                     onClick={reset ? reset : toUserPage}
-                    h="h-[26%]"
                     value={show && show.isShow ? "Restart" : "PLAY vs player"}
                     imgSrc={player}
                     bg={show && show.isShow ? "bg-white" : "bg-yellow"}
                       />
               </Link>
-               
+                <Link
+                 className="block h-[26%]"
+                 to="/fourconnects/gamerules/1"
+                >
                   <Button
-                    onClick={quit ? quit : toGamePage}
-                     h="h-[26%]"
+                    onClick={quit}
+                    h="h-[26%]"
                     value={show && show.isShow ? "quit game" :"game rules"}
                     bg={show && show.isShow ? "bg-red": "bg-[white]"}
-                   />
+                    />
             
+                </Link>
+                
             </div>
             
          </div>
