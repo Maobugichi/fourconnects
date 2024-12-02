@@ -16,7 +16,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Routes>
           <Route path="/" element={<Navigate replace to="/fourconnects" />} />
           <Route path="/fourconnects" element={<HomePage />} />
-          <Route path="/fourconnects/playcpu/:playcpuId" element={<MainPage/>}/>
+          <Route path="/fourconnects/mainpage/:mainpageId" element={<MainPage/>}/>
           <Route path="/fourconnects/gamerules/:gamesrulesId" element={<GameRules/>}/>
         </Routes>
       </HashRouter>
