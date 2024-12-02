@@ -8,10 +8,7 @@ export default function Card({logo,cpu,player,bg,show,setShow,reset,quit}) {
   const [isCpu, setCpu] = useState(null)
   const navigate = useNavigate();
   const toNextPage = (e) => {
-  if (e.target.innerText == "PLAY VS CPU") {
-    setCpu(true)
-    localStorage.setItem("isCpu",isCpu.toString())
-  }  
+ 
   
   setShow(prev => {
     return  {
@@ -46,18 +43,23 @@ export default function Card({logo,cpu,player,bg,show,setShow,reset,quit}) {
                  h="h-[26%]"
                  value={show && show.isShow ? "continue game" : "PLAY vs cpu"}
                  imgSrc={show && show.isShow ? null : cpu}
-                 //onClick={toNextPage}
+                 onClick={toNextPage}
                 />
                
               </Link>
 
+              <Link 
+               to="/fourconnects/sec/1"
+              className="block h-[26%]">
                 <Button
-                  onClick={reset ? reset : toUserPage}
-                  h="h-[26%]"
-                  value={show && show.isShow ? "Restart" : "PLAY vs player"}
-                  imgSrc={player}
-                  bg={show && show.isShow ? "bg-white" : "bg-yellow"}
-                    />
+                    onClick={reset ? reset : toUserPage}
+                    h="h-[26%]"
+                    value={show && show.isShow ? "Restart" : "PLAY vs player"}
+                    imgSrc={player}
+                    bg={show && show.isShow ? "bg-white" : "bg-yellow"}
+                      />
+              </Link>
+               
                   <Button
                     onClick={quit ? quit : toGamePage}
                      h="h-[26%]"
