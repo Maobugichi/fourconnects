@@ -26,7 +26,7 @@ export default function Card({logo,cpu,player,bg,show,setShow,reset,quit}) {
 
     useEffect(() => {
       if (isCpu) {
-        //navigate("/fourconnects/mainpage/1",{state:{isCpu:isCpu.toString()}})
+        navigate("/fourconnects/mainpage/1",{state:{isCpu:isCpu.toString()}})
       }
       
     },[isCpu,navigate])
@@ -40,18 +40,13 @@ export default function Card({logo,cpu,player,bg,show,setShow,reset,quit}) {
          <div className={` flex items-center flex-col h-[330px] w-[85%]  justify-between`}>
            {logo ? <img  className="w-[45px]" src={logo}  alt="logo" />: <h2 className="text-4xl uppercase text-white font-bold">{show.head}</h2>}
             <div className="h-[70%] w-full flex flex-col justify-between">
-              <Link
-               className="h-[26%] block"
-              to="/fourconnects/mainpage/1">
                 <Button
-                  bg={show && show.isShow ? "bg-white" : "bg-red"}
-                 
-                  value={show && show.isShow ? "continue game" : "PLAY vs cpu"}
-                  imgSrc={show && show.isShow ? null : cpu}
-                  //onClick={toNextPage}
-                  />
-              </Link>
-               
+                 bg={show && show.isShow ? "bg-white" : "bg-red"}
+                 h="h-[26%]"
+                 value={show && show.isShow ? "continue game" : "PLAY vs cpu"}
+                 imgSrc={show && show.isShow ? null : cpu}
+                 onClick={toNextPage}
+                />
                
                 <Button
                   onClick={reset ? reset : toUserPage}
