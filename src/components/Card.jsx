@@ -21,7 +21,7 @@ export default function Card({logo,cpu,player,bg,show,setShow,reset,quit}) {
   }
 
   const toGamePage = (e) => {
-    navigate("/gamerules/1")
+    navigate("/fourconnects/gamerules/1")
   }
 
     useEffect(() => {
