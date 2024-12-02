@@ -26,9 +26,9 @@ export default function Card({logo,cpu,player,bg,show,setShow,reset,quit}) {
 
     useEffect(() => {
       if (isCpu) {
-        navigate("/playcpu/1",{state:{isCpu:isCpu.toString()}})
+        navigate("/fourconnects/playcpu/1",{state:{isCpu:isCpu.toString()}})
       } else if (isCpu == false) {
-        navigate("/playcpu/1",{state:{isCpu:isCpu.toString()}})
+        navigate("/fourconnects/playcpu/1",{state:{isCpu:isCpu.toString()}})
       }
       
     },[isCpu,navigate])
