@@ -6,6 +6,7 @@ import MainPage from "./components/MainPage";
 import MyProvider from "./components/MyProvider";
 import "./index.css"
 import GameRules from "./components/GameRules";
+import { Navigate } from 'react-router-dom'
 
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -13,7 +14,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <MyProvider>
       <HashRouter>
         <Routes>
-          <Route path="/" element={<HomePage/>}/> 
+          <Route path="/" element={<Navigate replace to="/fourconnects" />} />
+          <Route path="/fourconnects" element={<HomePage />} />
           <Route path="/playcpu/:playcpuId" element={<MainPage/>}/>
           <Route path="/gamerules/:gamesrulesId" element={<GameRules/>}/>
         </Routes>
