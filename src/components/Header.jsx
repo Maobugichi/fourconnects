@@ -7,7 +7,7 @@ const Header = ({setRestart,setShow}) => {
     setRestart(true)
     setTimeout(() => {
       setRestart(false)
-    },2000)
+    },100)
    }
 
     return(

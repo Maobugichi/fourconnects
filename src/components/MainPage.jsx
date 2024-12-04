@@ -17,7 +17,7 @@ const location = useLocation()
 //console.log(checkCpu)
 const [isRestart, setRestart] = useState(false)
   return(
-    <section className="h-auto md:min-h-[100vh] bg-purple overflow-x-hidden font-custom-font">
+    <section className="w-full h-auto md:min-h-[100vh] bg-purple overflow-hidden font-custom-font">
       <Modal
        show={show}
        setShow={setShow}
@@ -29,7 +29,6 @@ const [isRestart, setRestart] = useState(false)
        setRestart={setRestart}
       />
       
-     
       <PlayerCpu
         show={show}
         setShow={setShow}

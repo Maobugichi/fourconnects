@@ -7,7 +7,7 @@ import { useState , useEffect, useRef, useReducer} from "react"
 import { motion , AnimatePresence } from "motion/react"
 import { spring } from "motion"
 import checkDiagonal, {winningRowRed, winningRowYellow} from "../Context"
-import minMax, {checkYellow} from "./action"
+import minMax, {checkYellow , checkRed, minMax2} from "./action"
 
 
 
@@ -27,13 +27,14 @@ const PlayerCpu = ({show,setShow , isRestart,setRestart}) => {
     return storedScore ? JSON.parse(storedScore) : {
     user:0,
     comp:0}
-  })
+   })
     const [clickedRows, setClickedRows] = useState([]);
-    const [currentRow, setRows] = useState()
+    //const [currentRow, setRows] = useState()
     const [defaultWin,setDefaultWin] = useState(false)
   
     useEffect(() => {
-      const hidden = document.querySelectorAll(".zero");
+      const rows = document.querySelectorAll(".row")
+      const hidden = document.querySelectorAll(".hidden");
       const randomBtn = Math.floor(Math.random() * hidden.length);
       if (playerWon.user || playerWon.computer || defaultWin) {
           hidden.forEach(item => {
@@ -41,44 +42,46 @@ const PlayerCpu = ({show,setShow , isRestart,setRestart}) => {
           })
         } else {
           const timeoutId = setTimeout(() => {
-            if (isAnimate.ani && hidden[randomBtn]) {  
+            if (isAnimate.ani && hidden[randomBtn].nextElementSibling) {  
                 hidden.forEach(item => {
-                    item.disabled = false
-                })
-              const rows = document.querySelectorAll(".row")
-              
-              if (minMax(rows).count >= 2 && clickedRows !== rows[minMax(rows).index]) {
+                    item.nextElementSibling.disabled = false
+                   
+                })        
+              if (minMax(rows).count >= 2 && clickedRows !== rows[minMax(rows).index] && rows[minMax(rows).index].querySelectorAll(".zero")[0].previousElementSibling.className.includes("hidden")) {
                   rows[minMax(rows).index].querySelectorAll(".zero")[0].click()
                   setClickedRows(rows[minMax(rows).index])
                   setAnimate({ani:false})
-              } else if (checkYellow(rows) && clickedRows !== checkYellow(rows)) {
+              } else if (minMax2(rows).count == 3 && clickedRows !== rows[minMax2(rows).index] && rows[minMax2(rows).index].querySelectorAll(".zero")[0].previousElementSibling.className.includes("hidden")) {
+                 rows[minMax2(rows).index].querySelectorAll(".zero")[0].click()
+                 setClickedRows(rows[minMax2(rows).index])
+                 setAnimate({ani:false})
+              } 
+              else if (checkYellow(rows) && clickedRows !== checkYellow(rows) && checkYellow(rows).previousElementSibling.className.includes("hidden")) {
                   checkYellow(rows).click()
-                  setClickedRows(checkYellow(rows))
+                  setClickedRows(rows[minMax(rows).index])
                   setAnimate({ani:false})
-              } else {
-                  hidden[randomBtn].click()
+              } else if (checkRed(rows) && clickedRows !== checkRed(rows) && checkRed(rows).previousElementSibling.className.includes("hidden")) {
+                checkRed(rows).click()
+                setClickedRows(rows[minMax(rows).index])
+                setAnimate({ani:false})
+              }
+              else {
+                 //console.log(hidden[randomBtn].previousElementSibling)
+                  hidden[randomBtn].nextElementSibling.click()
                   setAnimate({ani:false})
                   setClickedRows("")
               }     
             }
-    
+          
           }, 3000); 
-          const timeoutId2 = setTimeout(() => {
-            setAnimate(prev => {
-              return {
-                ...prev,
-                openModal:false
-              }
-            })
-          },4000) 
+          
           return () => { 
-            clearTimeout(timeoutId2)
             clearTimeout(timeoutId);
           }
         }
 
     
-    },[isAnimate,playerWon,defaultWin,currentRow])
+    },[isAnimate,compMove,playerWon,defaultWin,clickedRows,checkRed,checkYellow,minMax,minMax2])
 
 
     useEffect(() => {
@@ -102,9 +105,7 @@ const PlayerCpu = ({show,setShow , isRestart,setRestart}) => {
           }
          })
          const hidden = document.querySelectorAll(".zero")
-         hidden.forEach(item => {
-           item.disabled = true
-         })
+         hidden.forEach(item => item.disabled = true)
          setBg("bg-red")
          setHasUpdated(true)
       } else if (playerWon.computer && !hasUpdated || defaultWin && !hasUpdated) {
@@ -132,15 +133,12 @@ const PlayerCpu = ({show,setShow , isRestart,setRestart}) => {
           item.classList.remove("bg-yellow","bg-red")
           item.innerText = ""
         })
-        setImgSrc({img:redCounter , text:"your turn"})
+        //setImgSrc({img:redCounter , text:"your turn"})
         setTimer(30)
         setBg("bg-dark-purple")
         setDefaultWin(false)
+        setHasUpdated(false)
         setPlayerWon({user:false,computer:false})
-        const hidden = document.querySelectorAll(".zero")
-        hidden.forEach(item => {
-          item.disabled = false
-        })
       }  
     },[isRestart])
 
@@ -180,7 +178,7 @@ const PlayerCpu = ({show,setShow , isRestart,setRestart}) => {
     )
     return(
       <>
-        <section className=" flex flex-col relative w-full  h-auto md:min-h-[100vh] min-h-[115vh]  justify-center">
+        <section className=" flex flex-col relative w-full  h-auto md:min-h-[100vh] min-h-[115vh]  justify-center ">
           <div className="md:w-[90%]  lg:w-[70%] xl:w-[55%] w-full mx-auto flex gap-4 items-center justify-center">
             <motion.div 
               initial={{scale:0}}
@@ -245,52 +243,52 @@ const PlayerCpu = ({show,setShow , isRestart,setRestart}) => {
           </div>
         
           <AnimatePresence>
-          <div className={`w-full h-auto md:min-h-[220px] min-h-[200px] relative top-4 rounded-t-[70px] ${bg}`}>
-            {playerWon.user || playerWon.computer || defaultWin ?  
-          
+            <div className={`w-full h-auto md:min-h-[220px] min-h-[200px] relative top-4 rounded-t-[70px] ${bg}`}>
+              {playerWon.user || playerWon.computer || defaultWin ?  
+                  <motion.div 
+                    exit={{scale:0, opacity:0}}
+                    initial={{scale:0}}
+                    whileInView={{scale:1}}
+                    transition={{duration:.5}}
+                    className="bg-white md:w-[18%] w-1/2 mx-auto rounded-2xl h-[150px] border-2 border-black shadow-b shadow-black-sh grid place-items-center absolute top-[-40px] left-[24%] md:left-[41%]">
+                    <div className="grid place-items-center w-full ">
+                      <span className="uppercase text-sm">{playerWon.user ? 'You' : 'computer'}</span>
+                      <p className="text-[40px] font-bold uppercase">Win</p>
+                      <button 
+                        onClick={() => {
+                          setRestart(true)
+                          setTimeout(() => {
+                            setRestart(false)
+                            const hidden = document.querySelectorAll(".zero")
+                            hidden.forEach(item => item.disabled = false)
+                          },100)
+                        }}
+
+                        className="bg-dark-purple text-white uppercase text-[12px] font-semibold md:w-[40%] w-1/2 rounded-2xl h-[36px] hover:bg-red transition-all duration-500">
+                        play again
+                      </button>
+                    </div>
+                  </motion.div>
+            
+              
+              :
+            
                 <motion.div 
                   exit={{scale:0, opacity:0}}
                   initial={{scale:0}}
                   whileInView={{scale:1}}
                   transition={{duration:.5}}
-                  className="bg-white md:w-[18%] w-1/2 mx-auto rounded-2xl h-[150px] border-2 border-black shadow-b shadow-black-sh grid place-items-center absolute top-[-40px] left-[24%] md:left-[41%]">
-                  <div className="grid place-items-center w-full ">
-                    <span className="uppercase text-sm">{playerWon.user ? 'You' : 'computer'}</span>
-                    <p className="text-[40px] font-bold uppercase">Win</p>
-                    <button 
-                      onClick={() => {
-                        setRestart(true)
-                        setHasUpdated(false)
-                        setDefaultWin(false)
-                        setPlayerWon({user:false,computer:false})
-                        setBg("bg-dark-purple")
-                      }}
-
-                     className="bg-dark-purple text-white uppercase text-[12px] font-semibold md:w-[40%] w-1/2 rounded-2xl h-[36px] hover:bg-red transition-all duration-500">
-                      play again
-                    </button>
+                  className=" w-1/2 mx-auto grid place-items-center relative h-auto min-h-[150px]">
+                  <motion.img className="absolute top-[-50px]  w-[150px] " src={imgSrc.img} alt="red counter" />
+                  <div className=" absolute top-[-20px] grid place-items-center gap-3">
+                  <p className="text-[10px] uppercase ">{imgSrc.text}</p>
+                  <span className="text-4xl font-bold" >{timer}s</span>
                   </div>
+              
                 </motion.div>
-           
             
-            :
-           
-              <motion.div 
-                exit={{scale:0, opacity:0}}
-                initial={{scale:0}}
-                whileInView={{scale:1}}
-                transition={{duration:.5}}
-                className=" w-1/2 mx-auto grid place-items-center relative h-auto min-h-[150px]">
-                <motion.img className="absolute top-[-50px]  w-[150px] " src={imgSrc.img} alt="red counter" />
-                <div className=" absolute top-[-20px] grid place-items-center gap-3">
-                <p className="text-[10px] uppercase ">{imgSrc.text}</p>
-                <span className="text-4xl font-bold" >{timer}s</span>
-                </div>
-            
-              </motion.div>
-           
-             }
-          </div>
+              }
+            </div>
           </AnimatePresence>
         </section>
         </>

@@ -15,7 +15,7 @@ const UservUser = ({show,setShow , isRestart,setRestart}) => {
     const [compMove, setCompMove] = useState(true)
     const [imgSrc, setImgSrc] = useState({img:redCounter,text:"your turn"})
     const [ise,setIse] = useState(true)
-    const [playerWon,setPlayerWon] = useState(false)
+    const [playerWon,setPlayerWon] = useState({user:false,computer:false})
     const [defaultWin,setDefaultWin] = useState({user:false,comp:false})
     const [hasUpdated,setHasUpdated] = useState(false)
     const [scoreBoard2,setScoreBoard2] = useState(() => {
@@ -37,6 +37,7 @@ const UservUser = ({show,setShow , isRestart,setRestart}) => {
     },[scoreBoard2])
 
     useEffect(() => {   
+      console.log(playerWon)
       if (playerWon.user && !hasUpdated || defaultWin.user && !hasUpdated) {
          setScoreBoard2(prev => {
           return {
@@ -46,6 +47,8 @@ const UservUser = ({show,setShow , isRestart,setRestart}) => {
          })
          setBg("bg-red")
          setHasUpdated(true)
+         const hidden = document.querySelectorAll(".zero");
+         hidden.forEach(item => item.disabled = true)
       } else if (playerWon.computer && !hasUpdated || defaultWin.comp && !hasUpdated) {
         setScoreBoard2(prev => {
           return {
@@ -56,27 +59,14 @@ const UservUser = ({show,setShow , isRestart,setRestart}) => {
         setBg("bg-yellow")
         setHasUpdated(true)
         const hidden = document.querySelectorAll(".zero")
-        hidden.forEach(item => {
-          item.disabled = true
-        })
-      }
-
-      if (playerWon.user || defaultWin.comp || defaultWin.user || playerWon.computer) {
-          const hidden = document.querySelectorAll(".zero")
-          hidden.forEach(item => {
-            item.disabled = true
-          })
-      }  {
-        const hidden = document.querySelectorAll(".zero")
-        hidden.forEach(item => {
-          item.disabled = false
-        })
+        hidden.forEach(item => item.disabled = true)
       }
     },[playerWon,hasUpdated,scoreBoard2,defaultWin])
 
 
     useEffect(() => {
       const ab = document.querySelectorAll(".ab")
+      console.log(isRestart)
       if (isRestart) {
         ab.forEach(item => {
           item.classList.add("hidden")
@@ -85,6 +75,7 @@ const UservUser = ({show,setShow , isRestart,setRestart}) => {
         })
         setImgSrc({img:redCounter , text:"player1 turn"})
         setTimer(30)
+        setHasUpdated(false)
         setDefaultWin({user:false,comp:false})
         setPlayerWon({user:false,computer:false})
         setBg("bg-dark-purple")
@@ -111,9 +102,9 @@ const UservUser = ({show,setShow , isRestart,setRestart}) => {
           })
         }
         if (compMove) {
-          setImgSrc({img:redCounter , text: "player1 turn"})
+          setImgSrc({img:redCounter , text: "player 1 turn"})
         } else {
-          setImgSrc({img:yellowCounter , text:"player2 turn"})
+          setImgSrc({img:yellowCounter , text:"player 2 turn"})
         } 
        return () => clearInterval(intervalId)
       }
@@ -216,34 +207,32 @@ const UservUser = ({show,setShow , isRestart,setRestart}) => {
                       <button 
                         onClick={() => {
                           setRestart(true)
-                          setHasUpdated(false)
-                          setDefaultWin(false)
-                          setPlayerWon({user:false,computer:false})
-                          setBg("bg-dark-purple")
-                        }}
-
-                      className="bg-dark-purple text-white uppercase text-[12px] font-semibold md:w-[40%] w-1/2 rounded-2xl h-[36px] hover:bg-red transition-all duration-500">
+                          setTimeout(() => {
+                            setRestart(false)
+                            const hidden = document.querySelectorAll(".zero")
+                            hidden.forEach(item => item.disabled = false)
+                          },100)
+                          //setPlayerWon({user:false,computer:false})
+                          }}
+                          className="bg-dark-purple text-white uppercase text-[12px] font-semibold md:w-[40%] w-1/2 rounded-2xl h-[36px] hover:bg-red transition-all duration-500">
                         play again
                       </button>
                     </div>
                   </motion.div>
-            
-              
-              :
-            
-                <motion.div 
-                  exit={{scale:0, opacity:0}}
-                  initial={{scale:0}}
-                  whileInView={{scale:1}}
-                  transition={{duration:.5}}
-                  className=" w-1/2 mx-auto grid place-items-center relative h-auto min-h-[150px]">
-                  <motion.img className="absolute top-[-50px]  w-[150px] " src={imgSrc.img} alt="red counter" />
-                  <div className=" absolute top-[-20px] grid place-items-center gap-3">
-                  <p className="text-[10px] uppercase ">{imgSrc.text}</p>
-                  <span className="text-4xl font-bold" >{timer}s</span>
-                  </div>
-              
-                </motion.div>
+                  :
+                  <motion.div 
+                    exit={{scale:0, opacity:0}}
+                    initial={{scale:0}}
+                    whileInView={{scale:1}}
+                    transition={{duration:.5}}
+                    className=" w-1/2 mx-auto grid place-items-center relative h-auto min-h-[150px]">
+                    <motion.img className="absolute top-[-50px]  w-[150px] " src={imgSrc.img} alt="red counter" />
+                    <div className=" absolute top-[-20px] grid place-items-center gap-3">
+                    <p className="text-[10px] uppercase ">{imgSrc.text}</p>
+                    <span className="text-4xl font-bold" >{timer}s</span>
+                    </div>
+                
+                  </motion.div>
             
               }
             </div>

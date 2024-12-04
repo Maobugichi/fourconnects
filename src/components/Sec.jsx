@@ -12,12 +12,10 @@ const [show,setShow] = useState({
   })
 
 const location = useLocation()
-//const {isCpu} = location.state
-//const checkCpu = isCpu === "true"
-//console.log(checkCpu)
+
 const [isRestart, setRestart] = useState(false)
   return(
-    <section className="h-auto md:min-h-[100vh] bg-purple overflow-x-hidden font-custom-font">
+    <section className="h-auto md:min-h-[100vh] bg-purple overflow-hidden w-full font-custom-font">
       <Modal
        show={show}
        setShow={setShow}

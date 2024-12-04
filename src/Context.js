@@ -91,8 +91,9 @@ export function winningRowRed(rows,winningComb,setPlayerWon,isRestart,setRestart
         let currentCombination = cellClasses.slice(i, i + 4);
         let currentCombination2 = cellClasses2.slice(i, i + 4);
         if (isRestart) {
-        currentCombination = []
-        currentCombination2 = []
+          currentCombination = []
+          currentCombination2 = []
+          console.log(`res: ${isRestart}`)
         }
         if (JSON.stringify(currentCombination) == JSON.stringify(winningComb)) {
             won = true
@@ -109,6 +110,7 @@ export function winningRowRed(rows,winningComb,setPlayerWon,isRestart,setRestart
         for (let rowIdx = 0; rowIdx < 7; rowIdx++) {
           const row = rows[rowIdx];
           let cell;
+          
           isRestart ? cell = null : cell = row.querySelectorAll('.ab')[col]
             if (cell) {
               currentCombination.push(cell.className.includes('bg-red') ? true : null);
