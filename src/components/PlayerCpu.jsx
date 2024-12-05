@@ -29,7 +29,7 @@ const PlayerCpu = ({show,setShow , isRestart,setRestart}) => {
     comp:0}
    })
     const [clickedRows, setClickedRows] = useState([]);
-    //const [currentRow, setRows] = useState()
+    const [zero,setZero] = useState(false)
     const [defaultWin,setDefaultWin] = useState(false)
   
     useEffect(() => {
@@ -45,25 +45,25 @@ const PlayerCpu = ({show,setShow , isRestart,setRestart}) => {
             if (isAnimate.ani && hidden[randomBtn].nextElementSibling) {  
                 hidden.forEach(item => {
                     item.nextElementSibling.disabled = false
-                   
                 })        
-              if (minMax(rows).count >= 2 && clickedRows !== rows[minMax(rows).index] && rows[minMax(rows).index].querySelectorAll(".zero")[0].previousElementSibling.className.includes("hidden")) {
-                  rows[minMax(rows).index].querySelectorAll(".zero")[0].click()
-                  setClickedRows(rows[minMax(rows).index])
+              if (minMax(rows) && clickedRows !== minMax(rows) && minMax(rows).previousElementSibling.className.includes("hidden")) {
+                  minMax(rows).click()
+                  setClickedRows(minMax(rows))
                   setAnimate({ani:false})
-              } else if (minMax2(rows).count == 3 && clickedRows !== rows[minMax2(rows).index] && rows[minMax2(rows).index].querySelectorAll(".zero")[0].previousElementSibling.className.includes("hidden")) {
-                 rows[minMax2(rows).index].querySelectorAll(".zero")[0].click()
-                 setClickedRows(rows[minMax2(rows).index])
-                 setAnimate({ani:false})
+                  setZero(true)
+                  console.log("1")
               } 
               else if (checkYellow(rows) && clickedRows !== checkYellow(rows) && checkYellow(rows).previousElementSibling.className.includes("hidden")) {
                   checkYellow(rows).click()
-                  setClickedRows(rows[minMax(rows).index])
+                  setClickedRows(checkYellow(rows))
                   setAnimate({ani:false})
+                  console.log("3")
+                  
               } else if (checkRed(rows) && clickedRows !== checkRed(rows) && checkRed(rows).previousElementSibling.className.includes("hidden")) {
                 checkRed(rows).click()
-                setClickedRows(rows[minMax(rows).index])
+                setClickedRows(checkRed(rows))
                 setAnimate({ani:false})
+                console.log("4")
               }
               else {
                  //console.log(hidden[randomBtn].previousElementSibling)
@@ -72,6 +72,8 @@ const PlayerCpu = ({show,setShow , isRestart,setRestart}) => {
                   setClickedRows("")
               }     
             }
+
+            //console.log(clickedRows)
           
           }, 3000); 
           
