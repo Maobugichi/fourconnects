@@ -18,7 +18,6 @@ export default function minMax(rows) {
     if (currentCombination2.every(item => item !== undefined)) {
       if (!currentCombination2[0].parentNode.previousElementSibling.childNodes[1].className.includes("bg-red") && !currentCombination2[0].parentNode.previousElementSibling.childNodes[1].className.includes("bg-yellow"))
          toClick = currentCombination2[0].parentNode.previousElementSibling.childNodes[1]
-      
     } 
   }
 
@@ -150,9 +149,29 @@ export default function minMax(rows) {
                          if (item.parentNode.nextElementSibling) {
                            if (!item.parentNode.nextElementSibling.querySelectorAll(".relative")[index].childNodes[0].className.includes("bg-red") && !item.parentNode.nextElementSibling.querySelectorAll(".relative")[index].childNodes[0].className.includes("bg-yellow")) {
                              toClick = item.parentNode.nextElementSibling.querySelectorAll(".relative")[index].childNodes[1]
-                             //changeFourCells = []
-                           }
-                         } 
+                             
+                           } else if (item.parentNode.previousElementSibling) {
+                            if (!item.parentNode.previousElementSibling.querySelectorAll(".relative")[index].childNodes[0].className.includes("bg-red") && !item.parentNode.previousElementSibling.querySelectorAll(".relative")[index].childNodes[0].className.includes("bg-yellow")) {
+                              toClick = item.parentNode.previousElementSibling.querySelectorAll(".relative")[index].childNodes[1]
+                              
+                            }
+                             } else if (changeFourCells[0].parentNode.parentNode.previousElementSibling) {
+                            changeFourCells[0].parentNode.parentNode.querySelectorAll(".relative").forEach((item,index) => {
+                                if (item.childNodes[0] ==  changeFourCells[0]) {
+                                  if (item.parentNode.previousElementSibling) {
+                                      if (!item.parentNode.previousElementSibling.querySelectorAll(".relative")[index].childNodes[0].className.includes("bg-red") && !item.parentNode.previousElementSibling.querySelectorAll(".relative")[index].childNodes[0].className.includes("bg-yellow") ) { 
+                                        toClick = item.parentNode.previousElementSibling.querySelectorAll(".relative")[index].childNodes[1]
+                                      }
+                                  }  else if (item.parentNode.nextElementSibling) {
+                                      if (!item.parentNode.nextElementSibling.querySelectorAll(".relative")[index].childNodes[0].className.includes("bg-red") && !item.parentNode.nextElementSibling.querySelectorAll(".relative")[index].childNodes[0].className.includes("bg-yellow") ) { 
+                                        toClick = item.parentNode.nextElementSibling.querySelectorAll(".relative")[index].childNodes[1]
+                                      }
+                                    }
+                                  
+                                }
+                            })
+                         }
+                       } 
                         
                        }
                        })

@@ -53,7 +53,7 @@ const PlayerCpu = ({show,setShow , isRestart,setRestart}) => {
                   setZero(true)
                   console.log("1")
               } 
-              else if (checkYellow(rows) && clickedRows !== checkYellow(rows) && checkYellow(rows).previousElementSibling.className.includes("hidden")) {
+              else if (checkYellow(rows) &&  checkYellow(rows).previousElementSibling.className.includes("hidden")) {
                   checkYellow(rows).click()
                   setClickedRows(checkYellow(rows))
                   setAnimate({ani:false})
