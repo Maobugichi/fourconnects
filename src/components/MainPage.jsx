@@ -12,9 +12,6 @@ const [show,setShow] = useState({
   })
 
 const location = useLocation()
-//const {isCpu} = location.state
-//const checkCpu = isCpu === "true"
-//console.log(checkCpu)
 const [isRestart, setRestart] = useState(false)
   return(
     <section className="w-full h-auto md:min-h-[100vh] bg-purple overflow-hidden font-custom-font">

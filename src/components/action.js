@@ -16,6 +16,7 @@ export default function minMax(rows) {
     let currentCombination2 = cellClasses2.slice(i, i + 3);
   
     if (currentCombination2.every(item => item !== undefined)) {
+      console.log(currentCombination2)
       if (!currentCombination2[0].parentNode.previousElementSibling.childNodes[1].className.includes("bg-red") && !currentCombination2[0].parentNode.previousElementSibling.childNodes[1].className.includes("bg-yellow"))
          toClick = currentCombination2[0].parentNode.previousElementSibling.childNodes[1]
     } 

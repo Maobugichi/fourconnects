@@ -46,7 +46,7 @@ const PlayerCpu = ({show,setShow , isRestart,setRestart}) => {
                 hidden.forEach(item => {
                     item.nextElementSibling.disabled = false
                 })        
-              if (minMax(rows) && clickedRows !== minMax(rows) && minMax(rows).previousElementSibling.className.includes("hidden")) {
+              if (minMax(rows) &&  minMax(rows).previousElementSibling.className.includes("hidden")) {
                   minMax(rows).click()
                   setClickedRows(minMax(rows))
                   setAnimate({ani:false})
@@ -66,15 +66,11 @@ const PlayerCpu = ({show,setShow , isRestart,setRestart}) => {
                 console.log("4")
               }
               else {
-                 //console.log(hidden[randomBtn].previousElementSibling)
                   hidden[randomBtn].nextElementSibling.click()
                   setAnimate({ani:false})
                   setClickedRows("")
               }     
             }
-
-            //console.log(clickedRows)
-          
           }, 3000); 
           
           return () => { 
@@ -84,7 +80,6 @@ const PlayerCpu = ({show,setShow , isRestart,setRestart}) => {
 
     
     },[isAnimate,compMove,playerWon,defaultWin,clickedRows,checkRed,checkYellow,minMax,minMax2])
-
 
     useEffect(() => {
       const rows = document.querySelectorAll('.row')
@@ -135,7 +130,6 @@ const PlayerCpu = ({show,setShow , isRestart,setRestart}) => {
           item.classList.remove("bg-yellow","bg-red")
           item.innerText = ""
         })
-        //setImgSrc({img:redCounter , text:"your turn"})
         setTimer(30)
         setBg("bg-dark-purple")
         setDefaultWin(false)
@@ -162,7 +156,7 @@ const PlayerCpu = ({show,setShow , isRestart,setRestart}) => {
        return () => clearInterval(intervalId)
       }
       
-    }, [timer,compMove,isAnimate])
+    }, [timer,compMove,isAnimate,show])
     const fRow = numbers.slice(0,6).map((number,index) =>  {return(
       <motion.div  className=" h-[15%] relative ">
         <Button  ise={ise} setIse={setIse}  id={index} isAnimate={isAnimate} setAnimate={setAnimate}/>
@@ -271,10 +265,7 @@ const PlayerCpu = ({show,setShow , isRestart,setRestart}) => {
                       </button>
                     </div>
                   </motion.div>
-            
-              
-              :
-            
+                 :
                 <motion.div 
                   exit={{scale:0, opacity:0}}
                   initial={{scale:0}}
@@ -286,7 +277,6 @@ const PlayerCpu = ({show,setShow , isRestart,setRestart}) => {
                   <p className="text-[10px] uppercase ">{imgSrc.text}</p>
                   <span className="text-4xl font-bold" >{timer}s</span>
                   </div>
-              
                 </motion.div>
             
               }
