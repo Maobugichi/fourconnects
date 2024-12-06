@@ -59,13 +59,13 @@ const PlayerCpu = ({show,setShow , isRestart,setRestart}) => {
                   setAnimate({ani:false})
                   console.log("3")
                   
-              } else if (checkRed(rows) && clickedRows !== checkRed(rows) && checkRed(rows).previousElementSibling.className.includes("hidden")) {
+              } else if (checkRed(rows) && checkRed(rows).previousElementSibling.className.includes("hidden")) {
                 checkRed(rows).click()
                 setClickedRows(checkRed(rows))
                 setAnimate({ani:false})
                 console.log("4")
-              }
-              else {
+              } 
+              else {  
                   hidden[randomBtn].nextElementSibling.click()
                   setAnimate({ani:false})
                   setClickedRows("")
