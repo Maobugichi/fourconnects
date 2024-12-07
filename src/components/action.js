@@ -23,8 +23,6 @@ export default function minMax(rows) {
          //
     } 
   }
-
-  console.log(toClick)
   return toClick
 }
 
@@ -77,7 +75,6 @@ export default function minMax(rows) {
                             if (!item.parentNode.previousElementSibling.querySelectorAll(".relative")[index].childNodes[0].className.includes("bg-red") && !item.parentNode.previousElementSibling.querySelectorAll(".relative")[index].childNodes[0].className.includes("bg-yellow")) {
                                 toClick = item.parentNode.previousElementSibling.querySelectorAll(".relative")[index].childNodes[1]
                             } else if (changeFourCells[0].parentNode.parentNode.nextElementSibling || changeFourCells[0].parentNode.parentNode.previousElementSibling) {
-                              console.log("hello world 2")
                               changeFourCells[0].parentNode.parentNode.querySelectorAll(".relative").forEach((item,index) => {  
                               if (item.childNodes[0] ==  changeFourCells[0]) {
                                 if (item.parentNode.nextElementSibling) {

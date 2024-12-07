@@ -248,7 +248,7 @@ const Button = () => {
         <motion.div
          initial={{y:-150}}
          whileInView={{y: inView }}
-         transition={{type:spring, duration:.4}}
+         transition={{type:spring, duration:.2,bounce:0.7,stiffness:200}}
          className={`ab  hidden absolute h-[98%] w-full cell  shadow-innerMild border-2 border-black  cursor-pointer rounded-full text-3xl text-white`}></motion.div>
     )
 }

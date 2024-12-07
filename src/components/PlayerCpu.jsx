@@ -35,11 +35,18 @@ const PlayerCpu = ({show,setShow , isRestart,setRestart}) => {
     useEffect(() => {
       const rows = document.querySelectorAll(".row")
       const hidden = document.querySelectorAll(".hidden");
+      if (hidden.length == 0) {
+        hidden.forEach(item => {
+          item.nextElementSibling.disabled = true
+        })
+        setRestart(true)
+      }
       const randomBtn = Math.floor(Math.random() * hidden.length);
       if (playerWon.user || playerWon.computer || defaultWin) {
-          hidden.forEach(item => {
-            item.disabled = true
-          })
+        hidden.forEach(item => {
+          item.nextElementSibling.disabled = true
+
+        })
         } else {
           const timeoutId = setTimeout(() => {
             if (isAnimate.ani && hidden[randomBtn].nextElementSibling) {  
@@ -51,19 +58,15 @@ const PlayerCpu = ({show,setShow , isRestart,setRestart}) => {
                   setClickedRows(minMax(rows))
                   setAnimate({ani:false})
                   setZero(true)
-                  console.log("1")
               } 
               else if (checkYellow(rows) &&  checkYellow(rows).previousElementSibling.className.includes("hidden")) {
                   checkYellow(rows).click()
                   setClickedRows(checkYellow(rows))
                   setAnimate({ani:false})
-                  console.log("3")
-                  
               } else if (checkRed(rows) && checkRed(rows).previousElementSibling.className.includes("hidden")) {
                 checkRed(rows).click()
                 setClickedRows(checkRed(rows))
                 setAnimate({ani:false})
-                console.log("4")
               } 
               else {  
                   hidden[randomBtn].nextElementSibling.click()
@@ -77,8 +80,6 @@ const PlayerCpu = ({show,setShow , isRestart,setRestart}) => {
             clearTimeout(timeoutId);
           }
         }
-
-    
     },[isAnimate,compMove,playerWon,defaultWin,clickedRows,checkRed,checkYellow,minMax,minMax2])
 
     useEffect(() => {
@@ -293,7 +294,7 @@ const Button = () => {
         <motion.div
          initial={{y:-150}}
          whileInView={{y: inView }}
-         transition={{type:spring, duration:.3}}
+         transition={{type:spring, duration:.2,bounce:0.7,stiffness:200}}
          className={`ab  hidden absolute h-[98%] w-full cell font-bold shadow-innerMild border-2 border-black  cursor-pointer rounded-full text-3xl text-white`}></motion.div>
     )
 }
