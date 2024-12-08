@@ -1,17 +1,13 @@
-import { useState,useContext, useEffect } from "react"
-import { GameContext } from "./MyProvider"
+import { useState} from "react"
 import Header from "./Header"
 import PlayerCpu from "./PlayerCpu"
 import Modal from "./Modal"
-import { useLocation } from "react-router-dom"
-import UservUser from "./UservUser"
+
 const MainPage = () => {
 const [show,setShow] = useState({
   isShow: false,
   head: "Paused"
-  })
-
-const location = useLocation()
+})
 const [isRestart, setRestart] = useState(false)
   return(
     <section className="w-full h-auto md:min-h-[100vh] bg-purple overflow-hidden font-custom-font">

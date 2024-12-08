@@ -1,17 +1,12 @@
-import { useState,useContext, useEffect } from "react"
-import { GameContext } from "./MyProvider"
+import { useState} from "react"
 import Header from "./Header"
-
 import Modal from "./Modal"
-import { useLocation } from "react-router-dom"
 import UservUser from "./UservUser"
 const Sec = () => {
 const [show,setShow] = useState({
   isShow: false,
   head: "Paused"
   })
-
-const location = useLocation()
 
 const [isRestart, setRestart] = useState(false)
   return(
@@ -26,8 +21,6 @@ const [isRestart, setRestart] = useState(false)
        show={show}
        setRestart={setRestart}
       />
-      
-     
       <UservUser
         show={show}
         setShow={setShow}

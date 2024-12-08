@@ -51,8 +51,6 @@ export default function Modal({show,setShow,setRestart}) {
          continueGame={continueGame}
         />
         </motion.div> : null }
-    </AnimatePresence>
-     
-      
+    </AnimatePresence>    
 )
 }

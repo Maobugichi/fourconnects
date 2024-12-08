@@ -54,8 +54,6 @@ export default function checkDiagonal(rows,setPlayerWon,isRestart,setRestart) {
           diagonalCells.forEach(item => {
             item.childNodes[0].innerText = "0"
           })
-
-          
         } else if ( diagonalCells.every((cell) => cell.childNodes[0].classList.contains('bg-yellow'))) {
           setPlayerWon({
             user:false,
@@ -93,7 +91,6 @@ export function winningRowRed(rows,winningComb,setPlayerWon,isRestart,setRestart
         if (isRestart) {
           currentCombination = []
           currentCombination2 = []
-          console.log(`res: ${isRestart}`)
         }
         if (JSON.stringify(currentCombination) == JSON.stringify(winningComb)) {
             won = true
@@ -110,7 +107,6 @@ export function winningRowRed(rows,winningComb,setPlayerWon,isRestart,setRestart
         for (let rowIdx = 0; rowIdx < 7; rowIdx++) {
           const row = rows[rowIdx];
           let cell;
-          
           isRestart ? cell = null : cell = row.querySelectorAll('.ab')[col]
             if (cell) {
               currentCombination.push(cell.className.includes('bg-red') ? true : null);
@@ -119,9 +115,7 @@ export function winningRowRed(rows,winningComb,setPlayerWon,isRestart,setRestart
             for (let i = 0; i <= currentCombination.length - 4; i++) {
               let fourCells = currentCombination.slice(i, i + 4);
               let changeFourCells = currentCombination2.slice(i, i + 4);
-
                 if (fourCells.every((cell) => cell === true)) {
-                    
                     won = true
                     changeFourCells.forEach(item => {
                     item.innerText = "0" 
@@ -148,17 +142,14 @@ export function winningRowRed(rows,winningComb,setPlayerWon,isRestart,setRestart
             return true
           }
         })
-
         const cellClasses2 = Array.from(cells).map( cell => {
           if (cell.className.includes("bg-yellow")) {
               return cell
           } 
         })
-
         for (let i = 0; i <= cellClasses.length - 4; i++) {
           let currentCombination = cellClasses.slice(i, i + 4);
           let currentCombination2 = cellClasses2.slice(i, i + 4);
-        
           if (JSON.stringify(currentCombination) == JSON.stringify(winningComb)) {
               setPlayerWon({
                 user:false,
@@ -183,8 +174,6 @@ export function winningRowRed(rows,winningComb,setPlayerWon,isRestart,setRestart
               for (let i = 0; i <= currentCombination.length - 4; i++) {
                 let fourCells = currentCombination.slice(i, i + 4);
                 let changeFourCells = currentCombination2.slice(i, i + 4);
-              
-              
                 if (fourCells.every((cell) => cell === true)) {
                     setPlayerWon({
                       user:false,

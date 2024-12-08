@@ -37,7 +37,6 @@ const UservUser = ({show,setShow , isRestart,setRestart}) => {
     },[scoreBoard2])
 
     useEffect(() => {   
-      console.log(playerWon)
       if (playerWon.user && !hasUpdated || defaultWin.user && !hasUpdated) {
          setScoreBoard2(prev => {
           return {
@@ -66,7 +65,6 @@ const UservUser = ({show,setShow , isRestart,setRestart}) => {
 
     useEffect(() => {
       const ab = document.querySelectorAll(".ab")
-      console.log(isRestart)
       if (isRestart) {
         ab.forEach(item => {
           item.classList.add("hidden")
@@ -109,16 +107,18 @@ const UservUser = ({show,setShow , isRestart,setRestart}) => {
        return () => clearInterval(intervalId)
       }
       
-    }, [timer,compMove,isAnimate])
+    }, [timer,compMove,isAnimate,show])
 
-    const fRow = numbers.slice(0,6).map((number,index) =>  {return(
+    const fRow = numbers.slice(0,6).map((number,index) =>  {
+      return(
       <motion.div  className=" h-[15%] relative ">
         <Button  ise={ise} setIse={setIse}  id={index} isAnimate={isAnimate} setAnimate={setAnimate}/>
         <BtnDrop setTimer={setTimer} compMove={compMove} setCompMove={setCompMove} ise={ise} setIse={setIse} key={number} id={index} isAnimate={isAnimate} setAnimate={setAnimate} setRestart={setRestart}/>
       </motion.div>
       )}
     )
-    const sRow = numbers.slice(6,12).map((number) =>  {return(
+    const sRow = numbers.slice(6,12).map((number) =>  {
+      return(
       <motion.div  className=" h-[15%] relative ">
         <Button  ise={ise} setIse={setIse}  id={number} isAnimate={isAnimate} setAnimate={setAnimate}/>
         <BtnDrop setTimer={setTimer} compMove={compMove} setCompMove={setCompMove} ise={ise} setIse={setIse} key={number} id={number} isAnimate={isAnimate} setAnimate={setAnimate} setRestart={setRestart}/>
@@ -212,7 +212,6 @@ const UservUser = ({show,setShow , isRestart,setRestart}) => {
                             const hidden = document.querySelectorAll(".zero")
                             hidden.forEach(item => item.disabled = false)
                           },100)
-                          //setPlayerWon({user:false,computer:false})
                           }}
                           className="bg-dark-purple text-white uppercase text-[12px] font-semibold md:w-[40%] w-1/2 rounded-2xl h-[36px] hover:bg-red transition-all duration-500">
                         play again
@@ -269,10 +268,10 @@ const BtnDrop = ({id,setAnimate,setTimer,compMove, setCompMove}) => {
       }
     return (
         <motion.button 
-        onClick={handleAnimate} 
-        id={id}
-        data-last-click={Date.now()}
-        className=" zero h-full w-full border-2 border-black shadow-inner   bg-purple cursor-pointer rounded-full"></motion.button>
+         onClick={handleAnimate} 
+         id={id}
+         data-last-click={Date.now()}
+         className=" zero h-full w-full border-2 border-black shadow-inner   bg-purple cursor-pointer rounded-full"></motion.button>
     )
 }
 

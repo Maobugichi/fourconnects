@@ -1,4 +1,3 @@
-import board from "../assets/board-layer-white-large.svg"
 import redSmily from "../assets/player-one.svg"
 import redCounter from "../assets/turn-background-red.svg"
 import yellowCounter from "../assets/turn-background-yellow.svg"
@@ -14,7 +13,6 @@ import minMax, {checkYellow , checkRed, minMax2} from "./action"
 const PlayerCpu = ({show,setShow , isRestart,setRestart}) => {
     const numbers = Array.from({length:42}, (_,i) => i + 1)
     const [isAnimate,setAnimate] = useState({ani:false,id:"",openModal:null})
-    const motionRef = useRef()
     const [timer,setTimer] = useState(30)
     const [compMove, setCompMove] = useState(true)
     const [imgSrc, setImgSrc] = useState({img:redCounter,text:"your turn"})
@@ -29,7 +27,6 @@ const PlayerCpu = ({show,setShow , isRestart,setRestart}) => {
     comp:0}
    })
     const [clickedRows, setClickedRows] = useState([]);
-    const [zero,setZero] = useState(false)
     const [defaultWin,setDefaultWin] = useState(false)
   
     useEffect(() => {

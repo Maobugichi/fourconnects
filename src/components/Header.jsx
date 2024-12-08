@@ -1,6 +1,4 @@
 import logo from "../assets/logo.svg"
-import { useEffect } from "react"
-
 
 const Header = ({setRestart,setShow}) => {
    function reset() {
